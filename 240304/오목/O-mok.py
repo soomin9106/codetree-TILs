@@ -16,15 +16,13 @@ def check_winner(x, y):
     for k in range(8):
         cnt = 1
         nx, ny = x + dx[k], y + dy[k]
-        # point_lst.append([str(nx + 1), str(ny + 1)])
         while 0 <= nx < 19 and 0 <= ny < 19 and games[nx][ny] == games[x][y]:
             cnt += 1
-            point_lst.append([str(nx + 1), str(ny + 1)])
             nx, ny = nx + dx[k], ny + dy[k]
 
         if cnt == 5:
             # print(point_lst)
-            return games[x][y], point_lst[1]
+            return games[x][y], [x + (2 * dx[k]), y + (2 * dy[k])]
 
     return 0, point_lst
 
@@ -34,7 +32,7 @@ for i in range(19):
             result, point_lst = check_winner(i, j)
             if result != 0:
                 print(result)
-                print(' '.join(point_lst))
+                print('{} {}'.format(point_lst[0] + 1, point_lst[1] + 1))
                 sys.exit()
 
 print(0)
