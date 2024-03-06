@@ -20,7 +20,7 @@ def dfs(level, arr):
         if not arr or arr[-1] != lines[i] and arr[-1][1] < lines[i][0]:
             arr.append(lines[i])
             dfs(level + 1, arr)
-            arr.pop()
+            # arr.pop()
 
-dfs(0, [])
+dfs(1, [])
 print(res)
