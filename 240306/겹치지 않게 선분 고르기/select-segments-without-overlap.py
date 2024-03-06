@@ -2,25 +2,39 @@ import sys
 
 n = int(input())
 lines = []
+selected_lines = []
+res = 0
 
 for _ in range(n):
     lines.append(list(map(int, input().split())))
 
-lines = sorted(lines, key = lambda x: x[0])
 
+def isOverlapped(l1, l2):
+    x1, y1 = l1
+    x2, y2 = l2
 
-res = 1
-def dfs(level, arr):
+    return x1 <= x2 <= y1 or x1 <= y2 <= y1 or x2 <= x1 <= y2 or x2 <= y1 <= y2
+
+def isPossible():
+    for i, l1 in enumerate(selected_lines):
+        for j, l2 in enumerate(selected_lines):
+            if i < j and isOverlapped(l1, l2):
+                return False
+
+    return True
+
+def dfs(level):
     global res
-    if level == len(lines):
-        res = max(res, len(arr))
+    if level == n:
+        if isPossible():
+            res = max(res, len(selected_lines))
         return
     
-    for i in range(len(lines)):
-        if not arr or arr[-1] != lines[i] and arr[-1][1] < lines[i][0]:
-            arr.append(lines[i])
-            dfs(level + 1, arr)
-            # arr.pop()
+    selected_lines.append(lines[level])
+    dfs(level + 1)
+    selected_lines.pop()
 
-dfs(1, [])
+    dfs(level + 1)
+
+dfs(0)
 print(res)
