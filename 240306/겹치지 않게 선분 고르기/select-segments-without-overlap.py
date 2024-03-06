@@ -9,7 +9,7 @@ for _ in range(n):
 lines = sorted(lines, key = lambda x: x[0])
 
 
-res = -int(1e9)
+res = 1
 def dfs(level, arr):
     global res
     if level == len(lines):
