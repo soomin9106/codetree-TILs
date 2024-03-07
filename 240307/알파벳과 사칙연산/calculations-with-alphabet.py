@@ -16,21 +16,21 @@ res = -int(1e9)
 
 def calc():
     val = val_dict[n_list[0]]
-    stack = [n_list[1]]
-    for idx in range(2, len(n_list)):
+    stack = []
+
+    for idx in range(1, len(n_list)):
         if n_list[idx] in alphabet:
-            mode = stack.pop()
+            mode = stack.pop() if stack else '+'
             if mode == "+":
                 val += val_dict[n_list[idx]]
-            if mode == "-":
+            elif mode == "-":
                 val -= val_dict[n_list[idx]]
-            if mode == "*":
+            elif mode == "*":
                 val *= val_dict[n_list[idx]]
         else:
             stack.append(n_list[idx])
     
     return val
-
 
 def dfs(cnt):
     global res
@@ -38,10 +38,9 @@ def dfs(cnt):
         res = max(res, calc())
         return 
     
-    else:
-        for i in range(1, 5):
-            val_dict[my_alpha[cnt]] = i
-            dfs(cnt + 1)
+    for i in range(1, 5):
+        val_dict[my_alpha[cnt]] = i
+        dfs(cnt + 1)
 
 dfs(0)
 print(res)
