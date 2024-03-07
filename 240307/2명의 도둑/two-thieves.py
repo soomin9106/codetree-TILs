@@ -16,12 +16,22 @@ for i in range(n):
 
 # print(all_matches)
 
+# def isPossibleMatch(mx1, my1, mx2, my2):
+#     if mx1 != mx2:
+#         return True
+#     if my1 < mx2 or my2 < mx1:
+#         return True
+#     return False
+
+def intersect(a, b, c, d):
+    return not (b < c or d < a)
+
 def isPossibleMatch(mx1, my1, mx2, my2):
     if mx1 != mx2:
         return True
-    if my1 < mx2 or my2 < mx1:
-        return True
-    return False
+    if intersect(my1 - m + 1, my1, my2 - m + 1, my2):
+        return False
+    return True
 
 # 가치 계산
 def calc_val(mm):
