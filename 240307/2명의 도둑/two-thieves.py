@@ -8,17 +8,20 @@ for _ in range(n):
 
 all_matches = []  # 가능한 조합 모두 담는 리스트
 
+
 for i in range(n):
     for j in range(n):
         if j + m - 1 < n:
             all_matches.append([i, j + m - 1, weights[i][j: j + m]])
 
+# print(all_matches)
+
 def isPossibleMatch(mx1, my1, mx2, my2):
     if mx1 != mx2:
         return True
     if my1 < mx2 or my2 < mx1:
-        return False
-    return True
+        return True
+    return False
 
 # 가치 계산
 def calc_val(mm):
@@ -41,6 +44,7 @@ res = -int(1e9)
 def dfs(cnt, i):
     global res
     if cnt == 2:
+        # print(selected_matches)
         if not isPossibleMatch(selected_matches[0][0], selected_matches[0][1], selected_matches[1][0], selected_matches[1][1]):
             return
         match_res = 0
