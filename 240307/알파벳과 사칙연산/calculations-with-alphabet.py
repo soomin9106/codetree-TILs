@@ -1,49 +1,47 @@
 import sys
+from collections import defaultdict
 
 n = input()
 n_list = list(n)
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
 
-res = -int(1e9)
-modes = ['+', '-', '*']
-my_modes = []
-my_alphas = []
+my_alpha = []
 
 for item in n_list:
-    if item in modes:
-        my_modes.append(item)
-    else:
-        my_alphas.append(item)
+    if item in alphabet and item not in my_alpha:
+        my_alpha.append(item)
 
-changed_nums = [0] * len(my_alphas)
-
+val_dict = defaultdict(int)
+res = -int(1e9)
 
 def calc():
-    val = changed_nums[0]
-    idx = 1
-    
-    for mode in my_modes:
-        if mode == '+':
-            val += changed_nums[idx]
-        elif mode == '-':
-            val -= changed_nums[idx]
-        elif mode == '*':
-            val *= changed_nums[idx]
-        idx += 1
+    val = val_dict[n_list[0]]
+    stack = [n_list[1]]
+    for idx in range(2, len(n_list)):
+        if n_list[idx] in alphabet:
+            mode = stack.pop()
+            if mode == "+":
+                val += val_dict[n_list[idx]]
+            if mode == "-":
+                val -= val_dict[n_list[idx]]
+            if mode == "*":
+                val *= val_dict[n_list[idx]]
+        else:
+            stack.append(n_list[idx])
     
     return val
 
+
 def dfs(cnt):
     global res
-    if cnt == len(my_alphas):
-        val = calc()
-        res = max(res, val)
-        return
+    if cnt == len(my_alpha):
+        res = max(res, calc())
+        return 
     
-    for i in range(1, 5):
-        
-        changed_nums[cnt] = i
-        dfs(cnt + 1)
-        
+    else:
+        for i in range(1, 5):
+            val_dict[my_alpha[cnt]] = i
+            dfs(cnt + 1)
 
 dfs(0)
 print(res)
