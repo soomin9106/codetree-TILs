@@ -14,7 +14,11 @@ for i in range(n):
             all_matches.append([i, j + m - 1, weights[i][j: j + m]])
 
 def isPossibleMatch(mx1, my1, mx2, my2):
-    return (my1 < mx2 or my2 < mx1)
+    if mx1 != mx2:
+        return True
+    if my1 < mx2 or my2 < mx1:
+        return False
+    return True
 
 # 가치 계산
 def calc_val(mm):
