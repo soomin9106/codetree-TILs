@@ -6,41 +6,42 @@ weights = []
 for _ in range(n):
     weights.append(list(map(int, input().split())))
 
-
-all_matches = [] # 가능한 조합 모두 담는 리스트
+all_matches = []  # 가능한 조합 모두 담는 리스트
 
 for i in range(n):
     for j in range(n):
         if j + m - 1 < n:
-            all_matches.append(weights[i][j: j+m])
+            all_matches.append([i, j + m - 1, weights[i][j: j + m]])
 
-
-def isPossibleMatch(m1, m2):
-    return m1[-1] < m2[0] or m2[-1] < m1[0]
+def isPossibleMatch(mx1, my1, mx2, my2):
+    return (my1 < mx2 or my2 < mx1)
 
 # 가치 계산
-def calc_val(m):
+def calc_val(mm):
     val = 0
-    if sum(m) <= c:
-        for item in m:
+    if sum(mm) <= c:
+        for item in mm:
             val += (item * item)
     else:
-        max_item = max(m)
-        val += (max_item * max_item)
+        for i in range(2 ** m):  
+            selected_items = [mm[j] for j in range(m) if (i & (1 << j)) > 0]
+            if sum(selected_items) <= c:
+                temp = sum([x * x for x in selected_items])
+                val = max(val, temp)
     return val
 
 selected_matches = []
 
-
 res = -int(1e9)
+
 def dfs(cnt, i):
     global res
     if cnt == 2:
-        if isPossibleMatch(selected_matches[0], selected_matches[1]):
+        if not isPossibleMatch(selected_matches[0][0], selected_matches[0][1], selected_matches[1][0], selected_matches[1][1]):
             return
         match_res = 0
         for match in selected_matches:
-            match_res += calc_val(match)
+            match_res += calc_val(match[-1])
         res = max(res, match_res)
         return
 
