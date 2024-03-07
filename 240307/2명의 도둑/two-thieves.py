@@ -14,15 +14,6 @@ for i in range(n):
         if j + m - 1 < n:
             all_matches.append([i, j + m - 1, weights[i][j: j + m]])
 
-# print(all_matches)
-
-# def isPossibleMatch(mx1, my1, mx2, my2):
-#     if mx1 != mx2:
-#         return True
-#     if my1 < mx2 or my2 < mx1:
-#         return True
-#     return False
-
 def intersect(a, b, c, d):
     return not (b < c or d < a)
 
