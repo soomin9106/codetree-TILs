@@ -8,7 +8,6 @@ modes = ['+', '-', '*']
 my_modes = []
 my_alphas = []
 
-
 for item in n_list:
     if item in modes:
         my_modes.append(item)
@@ -17,6 +16,7 @@ for item in n_list:
 
 changed_nums = [0] * len(my_alphas)
 
+
 def calc():
     val = changed_nums[0]
     idx = 1
@@ -24,23 +24,26 @@ def calc():
     for mode in my_modes:
         if mode == '+':
             val += changed_nums[idx]
-        if mode == '-':
+        elif mode == '-':
             val -= changed_nums[idx]
-        if mode == '*':
+        elif mode == '*':
             val *= changed_nums[idx]
         idx += 1
-    # print(changed_nums, val)
+    
     return val
 
 def dfs(cnt):
     global res
     if cnt == len(my_alphas):
-        res = max(res, calc())
-        return 
+        val = calc()
+        res = max(res, val)
+        return
     
     for i in range(1, 5):
+        
         changed_nums[cnt] = i
         dfs(cnt + 1)
+        
 
 dfs(0)
 print(res)
