@@ -12,9 +12,11 @@ for _ in range(n):
 
 res = -int(1e9)
 
-for i in range(k, max_point - k + 1):
+for i in range(max_point + 1):
     val = 0
     for j in range(i - k, i + k + 1):
+        if j < 1 or j > 100:
+            break
         val += buckets[j][1]
 
     res = max(res, val)
