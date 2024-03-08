@@ -18,9 +18,9 @@ res = -int(1e9)
 
 for idx in range(len(points_list)):
     val = 0
-    if points_list[idx] + k >= 10000:
-        break
-    for i in range(points_list[idx], points_list[idx] + k + 1):
+    # if points_list[idx] + k >= 10000:
+    #     break
+    for i in range(points_list[idx], min(points_list[idx] + k + 1, 10001)):
         if arr[i] == 'G':
             val += 1
         elif arr[i] == 'H':
