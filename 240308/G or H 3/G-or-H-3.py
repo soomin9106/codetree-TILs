@@ -15,7 +15,9 @@ res = -int(1e9)
 
 
 
-for point in points_list:
+for idx, point in enumerate(points_list):
+    if idx + k >= max(points_list):
+        break
     val = 0
     for i in range(point, point + k + 1):
         if arr[i] == 'G':
