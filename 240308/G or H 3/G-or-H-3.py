@@ -13,6 +13,14 @@ points_list.sort()
 
 res = -int(1e9)
 
+if len(points_list) == 1 and k == 1:
+    if arr[points_list[0]] == 'G':
+        print(1)
+        exit(0)
+    else:
+        print(2)
+        exit(0)
+
 for point in points_list:
     if point + k in points_list:
         val = 0
