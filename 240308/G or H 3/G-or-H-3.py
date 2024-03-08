@@ -15,11 +15,9 @@ res = -int(1e9)
 
 
 
-for idx, point in enumerate(points_list):
-    if idx + k >= max(points_list):
-        break
+for idx in range(len(points_list) - k + 1):
     val = 0
-    for i in range(point, point + k + 1):
+    for i in range(points_list[idx], points_list[idx] + k + 1):
         if arr[i] == 'G':
             val += 1
         elif arr[i] == 'H':
