@@ -10,9 +10,17 @@ b_len = len(b)
 cnt = 0
 
 for i in range(a_len - b_len + 1):
-    if set(a[i: i + m]) == set(b):
+    one_lst = a[i: i+m]
+    flag = True
+    for item in one_lst:
+        if item in b:
+            continue
+        else:
+            flag = False
+            break
+    
+    if flag:
         cnt += 1
-    else:
-        continue
+
 
 print(cnt)
