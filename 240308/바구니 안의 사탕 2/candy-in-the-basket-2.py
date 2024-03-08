@@ -1,7 +1,7 @@
 import sys 
 
 n, k = map(int, input().split())
-buckets = [(i, 0) for i in range(100)]
+buckets = [(i, 0) for i in range(101)]
 max_point = -int(1e9)
 for _ in range(n):
     cnt, point = map(int, input().split())
