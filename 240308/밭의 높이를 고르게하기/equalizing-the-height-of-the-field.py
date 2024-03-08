@@ -1,6 +1,6 @@
 import sys
 
-n, t, h = map(int, input().split())
+n, h, t = map(int, input().split())
 arr = list(map(int, input().split()))
 
 res = int(1e9)
