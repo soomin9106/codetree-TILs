@@ -1,16 +1,19 @@
 import sys 
 
 n = int(input())
-arr = list(map(int, input().split()))
+arr = [0] + list(map(int, input().split()))
 
-res = 0
-start_idx = 0
+res = -int(1e9)
+sum_of_nums = 0
 
-for i in range(1, len(arr)):
-    if sum(arr[start_idx: i + 1]) < 0:
-        start_idx = i + 1
-        res = 0
+
+for i in range(1, n+1):
+    if sum_of_nums < 0:
+        sum_of_nums = arr[i]
+
     else:
-        res = sum(arr[start_idx: i + 1])
+        sum_of_nums += arr[i]
+
+    res = max(res, sum_of_nums)
 
 print(res)
