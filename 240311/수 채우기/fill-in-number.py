@@ -1,15 +1,10 @@
 n = int(input())
 
-cnt = 0
+cnt = 100000
 
-arr = [5, 2]
-
-for a in arr:
-    cnt += (n // a)
-    n %= a
-
-if n != 0:
-    print(-1)
-    exit(0)
+for i in range(0, 100001):
+    r = n - (5 * i)
+    if r >= 0 and r % 2 == 0:
+        cnt = min(cnt, i + (r // 2))
 
 print(cnt)
