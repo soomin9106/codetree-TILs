@@ -3,9 +3,13 @@ arr = list(map(int, input().split()))
 
 res = -int(1e9)
 
+
+min_price = arr[0]
 for i in range(n):
-    for j in range(i + 1, n):
-        res = max(res, arr[j] - arr[i])
+    res = max(res, arr[i] - min_price)
+
+    if min_price > arr[i]:
+        min_price = arr[i]
 
 if res < 0 :
     print(0)
