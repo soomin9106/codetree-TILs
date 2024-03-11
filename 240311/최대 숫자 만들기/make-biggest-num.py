@@ -31,4 +31,4 @@ res = ''
 for a in arr:
     res += a
 
-print(int(res))
+print(res)
