@@ -13,7 +13,7 @@ d = 0
 
 res_arr[x][y] = 1
 
-for i in range(2, n * n + 1):
+for i in range(2, n * m + 1):
     nx, ny = x + dxs[d], y + dys[d]
 
     if not is_range(nx, ny) or res_arr[nx][ny] != 0:
@@ -21,6 +21,7 @@ for i in range(2, n * n + 1):
 
     x, y = x + dxs[d], y + dys[d]
     res_arr[x][y] = i
+
 
 for i in range(n):
     for j in range(m):
