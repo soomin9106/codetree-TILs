@@ -1,3 +1,5 @@
+from functools import cmp_to_key
+
 n = int(input())
 
 arr = []
@@ -6,7 +8,14 @@ for _ in range(n):
     s = input()
     arr.append([s.count("("), s.count(")"), s])
 
-arr = sorted(arr, key = lambda x: (x[1], -x[0]))
+def comp(a, b):
+    if a[0] * b[1] > a[1] * b[0]:
+        return -1
+    else:
+        return 1
+    return 0
+
+arr = sorted(arr, key = cmp_to_key(comp))
 
 new_str = ""
 for i in range(len(arr)):
