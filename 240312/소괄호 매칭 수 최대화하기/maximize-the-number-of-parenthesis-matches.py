@@ -6,7 +6,7 @@ for _ in range(n):
     s = input()
     arr.append([s.count("("), s.count(")"), s])
 
-arr = sorted(arr, key = lambda x: (-x[0], x[1]))
+arr = sorted(arr, key = lambda x: (x[1], -x[0]))
 
 new_str = ""
 for i in range(len(arr)):
