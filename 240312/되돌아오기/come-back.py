@@ -32,4 +32,7 @@ for item in arr:
     if flag == 0:
         break
 
+if x != 0 or y != 0:
+    print(-1)
+    exit(0)
 print(sec)
