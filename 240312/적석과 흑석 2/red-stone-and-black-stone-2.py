@@ -1,4 +1,4 @@
-from bisect import bisect_left
+from sortedcontainers import SortedSet
 
 c, n = map(int, input().split())
 
@@ -12,35 +12,19 @@ for _ in range(n):
     a, b = map(int, input().split())
     blacks.append((a, b))
 
-reds.sort()
-blacks = sorted(blacks, key = lambda x: x[1])
 
+blacks = sorted(blacks, key = lambda x: x[1])
+red_s = SortedSet(reds)
 
 ans = 0
-visited = set()
-for i in range(n):
-    start, end = blacks[i]
 
-    if start > reds[-1]:
-        continue
-    if end < reds[0]:
-        continue
+for a, b in blacks:
+    idx = red_s.bisect_left(a)
+    if idx != len(red_s):
+        ti = red_s[idx]
 
-    s_idx, e_idx = bisect_left(reds, start), bisect_left(reds, end)
-
-    # print(s_idx, e_idx)
-    if e_idx == len(reds):
-        e_idx -= 1
-    if s_idx == len(reds):
-        s_idx -= 1
-
-    while s_idx < len(reds) and reds[s_idx] in visited and s_idx <= e_idx:
-        s_idx += 1
-    
-    if s_idx > e_idx or reds[s_idx] > end:
-        continue
-    else:
-        ans += 1
-        visited.add(reds[s_idx])
+        if ti <= b:
+            ans += 1
+            red_s.remove(ti)
 
 print(ans)
