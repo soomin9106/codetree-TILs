@@ -21,7 +21,9 @@ visited = set()
 for i in range(n):
     start, end = blacks[i]
 
-    if start > reds[-1] or end < reds[0]:
+    if start > reds[-1]:
+        continue
+    if end < reds[0]:
         continue
 
     s_idx, e_idx = bisect_left(reds, start), bisect_left(reds, end)
