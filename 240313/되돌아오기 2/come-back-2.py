@@ -21,4 +21,7 @@ for i in range(len(n)):
     if n[i] == 'R':
         d = (d + 1) % 4
 
+if x != 0 or y != 0:
+    print(-1)
+    exit(0)
 print(cnt)
