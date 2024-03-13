@@ -8,8 +8,6 @@
 
 n = int(input())
 maps = [input() for _ in range(n)]
-
-
 k = int(input())
 
 def in_range(x, y):
@@ -22,7 +20,7 @@ dys = [0, -1, 0, 1]
 d = 0
 x, y = 0, 0
 
-# 여기 인덱스 잘 정해보는걸로...
+# 출발점에 따라 다르게
 if 1 <= k <= n:
     d = 0
     x, y = 0, k - 1
@@ -38,33 +36,31 @@ if 3*n + 1 <= k <= 4*n :
 
 # print(maps)
 cnt = 0
-while True:
+while in_range(x, y):
     # print(x, y)
     cnt += 1
     if maps[x][y] == '/':
         if d == 3:
             d = 2
-        if d == 2: 
+        elif d == 2: 
             d = 3
-        if d == 0:
+        elif d == 0:
             d = 1
-        if d == 1:
+        else:
             d = 0
         
     else:
         if d == 0:
             d = 3
-        if d == 3:
+        elif d == 3:
             d = 0
-        if d== 1:
+        elif d== 1:
             d = 2
-        if d == 2:
+        else:
             d = 1
         
-    nx, ny = x + dxs[d], y + dys[d]
-    if not in_range(nx, ny):
-        break
-    x, y = nx, ny
+    
+    x, y = x + dxs[d], y + dys[d]
         
 
 print(cnt)
