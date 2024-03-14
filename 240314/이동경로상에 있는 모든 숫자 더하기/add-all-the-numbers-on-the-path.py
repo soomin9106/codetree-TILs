@@ -3,7 +3,7 @@ n, t = map(int, input().split())
 command = input()
 
 arrs = []
-for _ in range(3):
+for _ in range(n):
     arrs.append(list(map(int, input().split())))
 
 # 오른쪽 돌기 기준
