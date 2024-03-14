@@ -4,15 +4,13 @@ arr = []
 for _ in range(n):
     arr.append(list(map(int, input().split())))
 
-
-
 visited = [[False] * n for _ in range(n)]
 
 def in_range(x, y):
     return 0 <= x < n and 0 <= y < n
 
 dxs = [0, 0, 1, -1]
-dys = [1, -1, 0, 1]
+dys = [1, -1, 0, 0]
 
 def dfs(x, y):
     global cnt
