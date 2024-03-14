@@ -13,7 +13,7 @@ dys = [0, 1, 0, -1]
 
 x, y = (n- 1)//2, (n- 1)//2
 d = 0
-res = arrs[x][y]
+res = arrs[(n- 1)//2][(n- 1)//2]
 
 def in_range(x, y):
     return 0 <= x < n and 0 <= y < n
