@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(2500)
+
 n, m = map(int, input().split())
 
 arr = []
@@ -24,15 +27,15 @@ def dfs(x, y):
         if in_range(nx, ny) and not visited[nx][ny] and temp[nx][ny] != 0:
             visited[nx][ny] = True
             dfs(nx, ny)
-
-
-while True:
+min_h = min(min(row) for row in arr)
+max_h = max(max(row) for row in arr)
+for temp_k in range(min_h, max_h + 1):
     temp = arr
     cnt = 0
     visited = [[False] * m for _ in range(n)]
     for i in range(n):
         for j in range(m):
-            if temp[i][j] <= k:
+            if temp[i][j] <= temp_k:
                 temp[i][j] = 0
 
     for i in range(n):
@@ -42,10 +45,8 @@ while True:
                 cnt += 1
                 dfs(i, j)
 
-    if cnt <= max_safe_zone:
-        break
-    else:
+    if cnt > max_safe_zone:
         max_safe_zone = cnt
-        k += 1
-
+        k = temp_k
+    
 print(k, max_safe_zone)
