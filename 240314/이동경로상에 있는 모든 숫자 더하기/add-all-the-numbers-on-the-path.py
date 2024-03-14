@@ -11,7 +11,7 @@ dxs = [-1, 0, 1, 0]
 dys = [0, 1, 0, -1]
 
 
-x, y = n//2, n//2
+x, y = (n- 1)//2, (n- 1)//2
 d = 0
 res = arrs[x][y]
 
@@ -22,6 +22,7 @@ def in_range(x, y):
 for i in range(t):
     if command[i] == 'F':
         nx, ny = x + dxs[d], y + dys[d]
+        # print(nx, ny)
         if in_range(nx, ny):
             x, y = nx, ny
             res += arrs[x][y]
