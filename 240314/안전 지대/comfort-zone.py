@@ -48,4 +48,4 @@ while True:
         max_safe_zone = cnt
         k += 1
 
-print(k - 1, max_safe_zone)
+print(k - 1 if k > 1 else 1, max_safe_zone)
