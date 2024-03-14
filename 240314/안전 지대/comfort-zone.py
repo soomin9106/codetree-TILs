@@ -32,7 +32,7 @@ while True:
     visited = [[False] * m for _ in range(n)]
     for i in range(n):
         for j in range(m):
-            if temp[i][j] == k:
+            if temp[i][j] <= k:
                 temp[i][j] = 0
 
     for i in range(n):
@@ -48,4 +48,4 @@ while True:
         max_safe_zone = cnt
         k += 1
 
-print(k - 1 if k > 1 else 1, max_safe_zone)
+print(k, max_safe_zone)
