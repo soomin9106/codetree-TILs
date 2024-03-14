@@ -29,7 +29,7 @@ def dfs(x, y):
             dfs(nx, ny)
 min_h = min(min(row) for row in arr)
 max_h = max(max(row) for row in arr)
-for temp_k in range(min_h, max_h + 1):
+for temp_k in range(1, max_h + 1):
     temp = arr
     cnt = 0
     visited = [[False] * m for _ in range(n)]
