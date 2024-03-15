@@ -69,9 +69,9 @@ for i in range(n):
             temp[i][j] = 0
             m_cnt += 1
 
-            if m_cnt == m:
-                move()
-                temp = arr
+        if m_cnt == m:
+            move()
+            temp = arr
 
 cnt =0
 for i in range(n):
