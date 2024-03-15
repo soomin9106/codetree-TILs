@@ -48,6 +48,7 @@ def bfs(x, y):
 
 for point in points:
     x, y = point
+    visited[x][y] = True
     bfs(x, y)
 
 cnt = 0
@@ -56,5 +57,5 @@ for i in range(n):
     for j in range(n):
         if visited[i][j]:
             cnt += 1
-
+# print(visited)
 print(cnt)
