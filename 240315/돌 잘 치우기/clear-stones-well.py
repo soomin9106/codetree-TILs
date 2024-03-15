@@ -1,4 +1,5 @@
 from collections import deque
+from itertools import combinations
 
 n, k, m = map(int, input().split())
 arr = []
@@ -6,7 +7,7 @@ arr = []
 for _ in range(n):
     arr.append(list(map(int, input().split())))
 
-temp = arr # 값을 계속 바꿀꺼니까!!
+temp = [row[:] for row in arr] # 값을 계속 바꿀꺼니까!!
 
 points = []
 for _ in range(k):
@@ -53,30 +54,34 @@ def move():
         visited[x][y] = True
         bfs(x, y)
 
-    # cnt =0
-    # for i in range(n):
-    #     for j in range(n):
-    #         if visited[i][j]:
-    #             cnt += 1
-    
-    # return cnt
+    cnt =0
+    for i in range(n):
+        for j in range(n):
+            if visited[i][j]:
+                cnt += 1
 
-m_cnt = 0
+    return cnt
 
+removed_list = []
 for i in range(n):
     for j in range(n):
         if arr[i][j] == 1:
-            temp[i][j] = 0
-            m_cnt += 1
+            removed_list.append((i, j))
 
-        if m_cnt == m:
-            move()
-            temp = arr
+removed_combi = list(combinations(removed_list, m))
 
-cnt =0
-for i in range(n):
-    for j in range(n):
-        if visited[i][j]:
-            cnt += 1
+res = -int(1e9)
+for remove in removed_combi:
+    temp = [row[:] for row in arr]
+    visited= [[False] * n for _ in range(n)]
 
-print(cnt)
+    for r in remove:
+        temp[r[0]][r[1]] = 0
+    
+    # print(temp)
+    val = move()
+
+    res = max(res, val)
+    
+
+print(res)
