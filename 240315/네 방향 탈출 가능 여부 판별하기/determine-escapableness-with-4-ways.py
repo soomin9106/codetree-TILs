@@ -40,6 +40,6 @@ def bfs(x, y):
                 visited[nx][ny] = True
                 q.append((nx, ny))
 
-
+visited[0][0] = True
 bfs(0, 0)
 print(1 if visited[n-1][m-1] else 0)
