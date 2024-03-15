@@ -72,7 +72,7 @@ removed_combi = list(combinations(removed_list, m))
 
 res = -int(1e9)
 for remove in removed_combi:
-    temp = [row[:] for row in arr]
+    temp = [row[:] for row in arr] # 깊은 복사
     visited= [[False] * n for _ in range(n)]
 
     for r in remove:
