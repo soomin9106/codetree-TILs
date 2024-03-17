@@ -10,50 +10,44 @@ for _ in range(n):
 dxs = [1, -1, 0, 0]
 dys = [0, 0, 1, -1]
 
+visited = [[False]*n for _ in range(n)]
+
 def in_range(x, y):
     return 0 <= x < n and 0 <= y < n
 
 def calc_cost(i, j, k):
-    q = deque()
-    q.append((i, j))
-    map_cnt = (k * k) + ((k + 1) * (k + 1))
-    k_cnt = 0
-    gold_cnt = 1 if maps[i][j] == 1 else 0
+    visited[i][j] = True
 
-    while q and k_cnt < k:
-        cur_x, cur_y = q.popleft()
+    q = deque()
+    q.append((i, j, 0))
+    map_cnt = (k * k) + (k+1)*(k+1)
+    gold_cnt = maps[i][j]
+
+    while q:
+        cur_x, cur_y, cur_depth = q.popleft()
 
         for dx, dy in zip(dxs, dys):
             nx, ny = cur_x + dx, cur_y + dy
 
-            if not in_range(nx, ny):
-                continue
-            elif maps[nx][ny] == 1:
-                gold_cnt += 1
-            # 무조건 다음 스탭을 위해서 넣어야 함
-            q.append((nx, ny))
-        
-        k_cnt += 1
-
+            if in_range(nx, ny) and not visited[nx][ny] and cur_depth < k:
+                visited[nx][ny] = True
+                q.append((nx, ny, cur_depth + 1))
+                gold_cnt += maps[nx][ny]
+            
     # print(gold_cnt, map_cnt)
-    return (m * gold_cnt) - map_cnt, gold_cnt # cost, count 순으로 반환
+    return gold_cnt
 
 
-max_change_cnt = 0
-number_k = 0
-count_res = 0
+count_res = -int(1e9)
 
-while True:
-    for i in range(n):
-        for j in range(n):
-            cost, count = calc_cost(i, j, number_k)
-            if cost > 0: # 손해보지 않을 때
-                max_change_cnt += 1
+for i in range(n):
+    for j in range(n):
+        for k in range(n+1):
+            visited = [[False]*n for _ in range(n)]
+            count = calc_cost(i, j, k)
+            result_dug = (k * k) + (k+1)*(k+1)
+            cost = (m * count) - result_dug
+            if cost >= 0:
                 count_res = max(count_res, count)
-
-    if max_change_cnt <= 0:
-        break
-    number_k += 1
-    max_change_cnt = 0
 
 print(count_res)
