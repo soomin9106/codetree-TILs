@@ -20,10 +20,14 @@ def is_happy_sequence(ar):
 
     return False
 
+if n == 1 and m == 1:
+    print(1)
+    exit(0)
+    
+    
 res = 0
 
 for i in range(n):
-    # print(arr[i])
     if is_happy_sequence(arr[i]):
         res += 1
 
