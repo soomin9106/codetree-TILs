@@ -19,7 +19,7 @@ def calc_cost(i, j, k):
     visited[i][j] = True
 
     q = deque()
-    q.append((i, j, 0))
+    q.append((i, j, 0)) # depth 를 따로 관리 해줘야 해당 요소가 몇번째 돌고 있는지 확인할 수 있음
     map_cnt = (k * k) + (k+1)*(k+1)
     gold_cnt = maps[i][j]
 
