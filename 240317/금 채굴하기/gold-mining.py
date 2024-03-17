@@ -38,7 +38,7 @@ def calc_cost(i, j, k):
     return gold_cnt
 
 
-count_res = -int(1e9)
+count_res = 0
 
 for i in range(n):
     for j in range(n):
