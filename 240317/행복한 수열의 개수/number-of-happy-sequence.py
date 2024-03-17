@@ -7,11 +7,7 @@ for _ in range(n):
 
 def is_happy_sequence(ar):
     cnt = 1
-    if cnt >= m:
-        return True
     for i in range(1, len(ar)):
-        if cnt >= m:
-            return True
         if ar[i] == ar[i - 1]:
             cnt += 1
 
@@ -20,7 +16,7 @@ def is_happy_sequence(ar):
         else:
             cnt = 1
 
-    return False
+    return cnt >= m
 
 
 res = 0
