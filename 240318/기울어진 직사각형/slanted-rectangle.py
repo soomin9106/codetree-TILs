@@ -17,7 +17,7 @@ def in_range(x, y):
 def do_simulate(x, y, length, direction):
     temp_cost = arr[x][y]
     cur_x, cur_y = x, y
-    for _ in range(length - 1):
+    for _ in range(length):
         temp_x, temp_y = cur_x + dxs[direction], cur_y + dys[direction]  # 수정된 부분
 
         if not in_range(temp_x, temp_y):
@@ -73,10 +73,6 @@ def calc_cost(width, height, x, y):
     return cost
 
     
-    
-
-            
-
 # 가로 길이 기준으로 For 문 돌기
 result = 0
 for width in range(1, n):
