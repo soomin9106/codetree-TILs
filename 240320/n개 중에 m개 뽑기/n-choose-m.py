@@ -8,18 +8,33 @@ def print_nums():
         print(num, end = ' ')
     print()
 
-def dfs(idx):
+# def dfs(idx):
+#     global selected_nums
+#     if len(selected_nums) == m:
+#         print_nums()
+#         return
+
+#     if idx >= n:
+#         return
+
+#     selected_nums.append(nums[idx])
+#     dfs(idx + 1)
+#     selected_nums.pop()
+#     dfs(idx + 1)
+
+def dfs(cnt, last_num):
     global selected_nums
-    if len(selected_nums) == m:
+    if cnt == m:
         print_nums()
-        return
+        return 
 
-    if idx >= n:
-        return
+    for i in range(last_num + 1, n + 1):
+        selected_nums.append(i)
+        dfs(cnt + 1, i)
+        selected_nums.pop()
 
-    selected_nums.append(nums[idx])
-    dfs(idx + 1)
+
+for num in nums:
+    selected_nums.append(num)
+    dfs(1, num)
     selected_nums.pop()
-    dfs(idx + 1)
-
-dfs(0)
