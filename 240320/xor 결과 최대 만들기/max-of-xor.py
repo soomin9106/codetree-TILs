@@ -6,6 +6,7 @@ res = -int(1e9)
 
 def calc_xor():
     # selected_nums 에 있는 값들 xor 계산
+    # print(selected_nums)
     val = selected_nums[0]
 
     for i in range(1, len(selected_nums)):
@@ -16,7 +17,7 @@ def calc_xor():
 def dfs(idx):
     global selected_nums 
     global res
-    if len(selected_nums) == m - 1:
+    if len(selected_nums) == m:
         res = max(calc_xor(), res)
         return 
     
