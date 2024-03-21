@@ -34,7 +34,7 @@ def bfs(x, y):
                 q.append((nx, ny, cur_cost + 1))
 
 bfs(r1, c1)
-if arr[r2][c2] == 0:
+if not visited[r2][c2]:
     print(-1)
     exit(0)
 
