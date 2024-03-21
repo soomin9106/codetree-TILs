@@ -9,27 +9,27 @@ visited_col = [False] * n
 selected_elements = []
 res = -int(1e9)
 
-def dfs(cur_num, x, y):
+def calc():
+    temp_res = 0
+    for i in range(n):
+        temp_res += arr[i][selected_elements[i]]
+
+    return temp_res
+
+def dfs(cur_num):
     global res
     if cur_num == n:
-        res = max(res, sum(selected_elements))
+        res = max(res, calc())
         return
 
-    for i in range(n):
-        if visited_row[i]:
+    for j in range(n):
+        if visited_col[j]:
             continue
-        
-        visited_row[i] = True
-        for j in range(n):
-            if visited_col[j]:
-                continue
-            visited_col[j] = True
-            selected_elements.append(arr[i][j])
-            dfs(cur_num + 1, i, j)
-            selected_elements.pop()
-            visited_col[j] = False
-        
-        visited_row[i] = False
+        visited_col[j] = True
+        selected_elements.append(j)
+        dfs(cur_num + 1)
+        selected_elements.pop()
+        visited_col[j] = False
 
-dfs(0, 0, 0)
+dfs(0)
 print(res)
