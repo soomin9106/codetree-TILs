@@ -4,30 +4,30 @@ costs = []
 for _ in range(n):
     costs.append(list(map(int, input().split())))
 
-visited = [False] * (n+1)
+visited = [False] * (n)
 selected = []
 res = int(1e9)
 
 
-def calc():
-    temp_res = costs[0][selected[0] - 1]
-
-    for i in range(len(selected) - 1):
-        temp_res += costs[selected[i] - 1][selected[i + 1] - 1]
-
-    temp_res += costs[selected[len(selected) - 1] - 1][0]
-
-    return temp_res
-
 
 def dfs(cur_num):
     global res
-    if cur_num == n-1:
+    if cur_num == n:
         # 계산
-        res = min(res, calc())
+        total_cost = 0
+        for j in range(n - 1):
+            cur_cost = costs[selected[j]][selected[j+1]]
+            if cur_cost == 0:
+                return 
+            total_cost += cur_cost
+        additional_cost = costs[selected[-1]][0]
+        if additional_cost == 0:
+            return 
+        
+        res = min(res, total_cost + additional_cost)
         return 
 
-    for i in range(2, n + 1):
+    for i in range(1, n):  
         if visited[i]:
             continue
         
@@ -39,6 +39,8 @@ def dfs(cur_num):
         selected.pop()
         visited[i] = False
 
+visited[0] = True
+selected.append(0)
+dfs(1)
 
-dfs(0)
 print(res)
