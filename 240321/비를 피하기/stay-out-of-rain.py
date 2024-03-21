@@ -41,7 +41,7 @@ def bfs():
 
 for x, y in s_pos:
     q.append((x, y))
-    visited[x][y] = 0
+    visited[x][y] = True
     step[x][y] = 0
 
 bfs()
