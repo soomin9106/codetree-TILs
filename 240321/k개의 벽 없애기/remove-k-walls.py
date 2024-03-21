@@ -75,4 +75,7 @@ def dfs(cur_num):
         visited_wall[i] = False
 
 dfs(0)
+if res == int(1e9):
+    print(-1)
+    exit(0)
 print(res)
