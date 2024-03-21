@@ -1,43 +1,66 @@
+from collections import deque
+import enum
+
+OPERATOR_NUM = 4
+INT_MAX = int(1e9)
+
+class OPERATOR(enum.Enum):
+    SUBTRACT = 0
+    ADD = 1
+    DIV2 = 2
+    DIV3 = 3
+
 n = int(input())
+ans = INT_MAX
+q = deque()
+visited = [False for _ in range(2 * n)]
 
-# 연산 종류
-calcs = [0, 1, 2, 3]
+step = [0 for _ in range(2 * n)]
 
-def possible(num, i):
-    if i == 0:
+def possible(num, op):
+    if op == OPERATOR.SUBTRACT.value or op == OPERATOR.ADD.value:
         return True
-    elif i == 1:
-        return True
-    elif i == 2 and num % 2 == 0:
-        return True
-    elif i == 3 and num % 3 == 0:
-        return True
-    return False
+    elif op == OPERATOR.DIV2.value:
+        return num % 2 == 0
+    else:
+        return num % 3 == 0
 
-def calculate(num, i):
-    if i == 0:
-        return num - 1
-    if i == 1:
+def calculate(num, op):
+    if op == OPERATOR.SUBTRACT.value:
+        return num -1
+    elif op == OPERATOR.ADD.value:
         return num + 1
-    if i == 2:
-        return num / 2
-    if i == 3:
-        return num / 3
+    elif op == OPERATOR.DIV2.value:
+        return num // 2
+    else:
+        return num // 3
 
-ans = int(1e9)
-def dfs(num, cnt):
+def in_range(num):
+    return 1 <= num <= 2 * n - 1
+
+def can_go(num):
+    return in_range(num) and not visited[num]
+
+def push(num, new_step):
+    q.append(num)
+    visited[num] = True
+    step[num] = new_step
+
+def find_min():
     global ans
-    if num == 1:
-        ans = min(ans, cnt)
-        return 
-    
-    if cnt >= n - 1:
-        return 
 
-    for i in range(4):
-        if possible(num, i):
-            dfs(calculate(num, i), cnt + 1)
+    while q:
+        cur_num = q.popleft()
 
+        for i in range(OPERATOR_NUM):
+            if possible(cur_num, i):
+                new_num = calculate(cur_num, i)
 
-dfs(n, 0)
+                if can_go(new_num):
+                    push(new_num, step[cur_num] + 1)
+        
+        ans = step[1]
+
+push(n, 0)
+find_min()
 print(ans)
