@@ -31,4 +31,4 @@ def bfs(x, y):
                 visited[nx][ny] = True
 
 bfs(0, 0)
-print(arr[n-1][m-1])
+print(-1 if arr[n-1][m-1] == 1 else arr[n-1][m-1])
