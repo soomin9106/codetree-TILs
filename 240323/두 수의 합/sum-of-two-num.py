@@ -3,14 +3,12 @@ from collections import defaultdict
 n, k = map(int, input().split())
 
 arr = list(map(int, input().split()))
-arr = list(set(arr))
 arr.sort()
+
 arr_cnt = defaultdict(int)
 
 for a in arr:
     arr_cnt[a] += 1
-
-# 3, 4, 5, 6, 7
 
 start = 0
 end = n - 1
@@ -28,11 +26,16 @@ while start < end:
     
     if temp < k:
         start += 1
+pairs = list(set(pairs))
+# print(pairs)
 
-res = 0
+cnt = 0
 
 for pair in pairs:
     i, j = pair
-    res += (arr_cnt[i] * arr_cnt[j])
+    if i == j:
+        cnt += (arr_cnt[i] * (arr_cnt[i] - 1)) // 2
+    else:
+        cnt += (arr_cnt[i] * arr_cnt[j])
 
-print(res)
+print(cnt)
