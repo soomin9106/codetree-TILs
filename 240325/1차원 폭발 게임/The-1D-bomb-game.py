@@ -23,9 +23,11 @@ def remove_nearby():
         nears.append(near_idxs)
 
     for near in nears:
+        # print(near[-1], arr)
         s, e = near[0], near[-1]
-        for j in range(s, e+1):
-            arr[j] = 0
+        if len(arr) >= 1:
+            for j in range(s, e+1):
+                arr[j] = 0
 
     temp_arr = []
     is_changed = False
