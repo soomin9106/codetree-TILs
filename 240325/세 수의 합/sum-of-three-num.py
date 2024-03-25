@@ -1,22 +1,21 @@
-from collections import defaultdict
+n,k = map(int,input().split())
 
-n, k = map(int, input().split())
-arr = list(map(int, input().split()))
+maps = list(map(int,input().split()))
 
-count = defaultdict(int)
+d= {}
 ans = 0
-
-for a in arr:
-    count[a] += 1
-
-for i in range(n):
-    for j in range(0, i):
-        diff = k - arr[i] - arr[j]
-
-        count[arr[i]] -= 1
-        # count[arr[j]] -= 1
-
-        if count[diff] > 0:
-            ans += 1
+for i in range(n) : 
+    for j in range(i+1,n) : 
+        elem = maps[j]
+        elem1 = maps[i]
+        diff = k - elem - elem1
         
+        if diff in d :
+            ans += d[diff]
+        
+    if maps[i] in d :
+        d[maps[i]] += 1 
+    else : 
+        d[maps[i]] = 1 
+
 print(ans)
