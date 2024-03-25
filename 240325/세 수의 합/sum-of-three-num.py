@@ -1,21 +1,21 @@
 n,k = map(int,input().split())
 
-maps = list(map(int,input().split()))
-
-d= {}
+arr = list(map(int,input().split()))
+count = dict()
 ans = 0
-for i in range(n) : 
-    for j in range(i+1,n) : 
-        elem = maps[j]
-        elem1 = maps[i]
-        diff = k - elem - elem1
-        
-        if diff in d :
-            ans += d[diff]
-        
-    if maps[i] in d :
-        d[maps[i]] += 1 
-    else : 
-        d[maps[i]] = 1 
+
+for a in arr:
+    if a in count:
+        count[a] += 1
+    else:
+        count[a] = 1
+
+for i in range(n):
+    count[arr[i]] -= 1
+    for j in range(i):
+        diff = k - arr[i] - arr[j]
+
+        if diff in count:
+            ans += count[diff]
 
 print(ans)
