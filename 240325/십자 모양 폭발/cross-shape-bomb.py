@@ -8,7 +8,7 @@ r, c = map(int, input().split())
 x = r - 1
 y =  c - 1
 
-val = arr[r][c]
+val = arr[x][y]
 
 dxs = [1, -1, 0, 0]
 dys = [0, 0, 1, -1]
