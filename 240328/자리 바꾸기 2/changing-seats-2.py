@@ -20,13 +20,13 @@ for i in range(3 * k):
     order = i % k
     a, b = ks[order]
 
-    arr[a], arr[b] = arr[b], arr[a]
-
     if b not in seat_dict[arr[a]]:
         seat_dict[arr[a]].add(b)
 
     if a not in seat_dict[arr[b]]:
         seat_dict[arr[b]].add(a)
+
+    arr[a], arr[b] = arr[b], arr[a]
 
 for sd in seat_dict:
     print(len(seat_dict[sd]))
