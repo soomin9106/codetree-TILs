@@ -15,4 +15,4 @@ for _ in range(m):
 
     heapq.heappush(arr, max_val)
 
-print(abs(arr[0]))
+print(-1 * arr[0])
