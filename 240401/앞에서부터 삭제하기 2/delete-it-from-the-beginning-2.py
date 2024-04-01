@@ -3,23 +3,21 @@ import heapq
 n = int(input())
 arr = list(map(int, input().split()))
 
-answer = -int(1e9)
-
+sum_val = 0
+max_avg = 0
 pq = []
+
 heapq.heappush(pq, arr[-1])
-avg = arr[-1]
+sum_val += arr[-1]
 
-for i in range(n - 2, 0, -1):
-    pq_len = len(pq)
+for i in range(n -2 , 0, -1):
     heapq.heappush(pq, arr[i])
+    sum_val += arr[i]
 
-    if pq[0] == arr[i]:
-        continue
+    min_num = pq[0]
+    avg = (sum_val - min_num) / (n - i - 1)
 
-    avg = sum(pq[1:]) / (len(pq) - 1)
-    if avg > answer:
-        # print(pq)
-        answer = avg
+    if max_avg < avg:
+        max_avg = avg
 
-formatted_number = f"{answer:.2f}"
-print(formatted_number)
+print(f"{max_avg:.2f}")
