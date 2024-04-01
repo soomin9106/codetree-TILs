@@ -16,6 +16,7 @@ for point in points:
     x, y = point
     heapq.heappush(pq, (calc_dist(x, y), x, y))
 
+for _ in range(m):
     _, nx, ny = heapq.heappop(pq)
 
     heapq.heappush(pq, (calc_dist(nx + 2, ny + 2), nx + 2, ny + 2))
