@@ -4,13 +4,22 @@ n = int(input())
 arr = list(map(int, input().split()))
 
 answer = -int(1e9)
-for k in range(1, n - 1):
-    temp_arr = arr[k:]
-    heapq.heapify(temp_arr)
 
-    temp_ans = sum(temp_arr[1:]) / (len(temp_arr) - 1)
+pq = []
+heapq.heappush(pq, arr[-1])
+avg = arr[-1]
 
-    answer = max(answer, temp_ans)
+for i in range(n - 2, 0, -1):
+    pq_len = len(pq)
+    heapq.heappush(pq, arr[i])
+
+    if pq[0] == arr[i]:
+        continue
+
+    avg = sum(pq[1:]) / (len(pq) - 1)
+    if avg > answer:
+        # print(pq)
+        answer = avg
 
 formatted_number = f"{answer:.2f}"
 print(formatted_number)
