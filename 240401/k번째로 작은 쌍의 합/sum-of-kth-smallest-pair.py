@@ -10,26 +10,17 @@ arrm.sort()
 
 pq = []
 
-for item in arrn:
-    heapq.heappush(pq, (item + arrm[0], item, arrm[0]))
+for i in range(n):
+    heapq.heappush(pq, (arrn[i] + arrm[0], i, 0))
 
-cnt = 1
-n_idx = 0
-m_idx = 1
-res = 0
+for i in range(k - 1):
+    _, idx1, idx2 = heapq.heappop(pq)
 
+    idx2 += 1
 
-while cnt != k:
-    # print(n_idx, m_idx)
-    res = heapq.heappop(pq)
-    cnt += 1
+    if idx2 < m:
+        heapq.heappush(pq, (arrn[idx1] + arrm[idx2], idx1, idx2))
 
-    heapq.heappush(pq, (arrn[n_idx] + arrm[m_idx], arrn[n_idx], arrm[m_idx]))
+answer, _, _ = heapq.heappop(pq)
 
-    n_idx = (n_idx + 1) % len(arrn)
-    if n_idx == 0:
-        m_idx += 1
-
-
-res = heapq.heappop(pq)
-print(res[0])
+print(answer)
