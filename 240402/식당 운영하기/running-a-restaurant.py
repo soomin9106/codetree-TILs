@@ -3,24 +3,25 @@ import heapq
 n = int(input())
 
 orders = []
+max_time = 0
 for _ in range(n):
     p, d = map(int, input().split())
-    orders.append((p, d))
+    max_time = max(max_time, d)
+    heapq.heappush(orders, (d, p))
 
-orders.sort(key = lambda x: (x[1], -x[0]))
-
+answer = 0
+curr_time = max_time
 pq = []
 
 for order in orders:
-    cur_p, cur_d = order
-    if pq and abs(pq[0][0]) == cur_d:
-        continue
-    else:
-        heapq.heappush(pq, (-cur_d, cur_p))
+    cur_d, cur_p = order
+    heapq.heappush(pq, (cur_p, cur_d))
 
-answer = 0
+    if len(pq) > curr_time:
+        while len(pq) != curr_time:
+            heapq.heappop(pq)
 
 for item in pq:
-    answer += item[1]
+    answer += item[0]
 
 print(answer)
