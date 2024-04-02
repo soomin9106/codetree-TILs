@@ -17,9 +17,8 @@ for order in orders:
     cur_d, cur_p = order
     heapq.heappush(pq, (cur_p, cur_d))
 
-    if len(pq) > curr_time:
-        while len(pq) != curr_time:
-            heapq.heappop(pq)
+    if len(pq) > cur_d:
+        heapq.heappop(pq)
 
 for item in pq:
     answer += item[0]
