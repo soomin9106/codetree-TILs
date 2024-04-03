@@ -2,9 +2,6 @@ n, q = map(int, input().split())
 
 points = list(map(int, input().split()))
 
-
-
-points.sort()
 max_point = max(points)
 
 prefix_sum = [0] * (max_point + 1)
