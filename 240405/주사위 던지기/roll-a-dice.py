@@ -68,7 +68,7 @@ for i in range(m):
         arr[nr][nc] = dir_arr[-1]
         r, c = nr, nc
     else:
-        break
+        continue
 
 
 answer = 0
