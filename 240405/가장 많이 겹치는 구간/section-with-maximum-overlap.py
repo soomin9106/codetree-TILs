@@ -1,24 +1,21 @@
+MAX_R = 200000
+
 n = int(input())
 
-points = []
-max_point = 0
-for _ in range(n):
-    s, e = map(int, input().split())
-    points.append((s, 1))
-    points.append((e, -1))
-    max_point = max(max_point, e)
+segments = [
+    tuple(map(int, input().split()))
+    for _ in range(n)
+]
+checked = [0] * (MAX_R + 1)
+ans = 0
+overlapped_cnt = 0
 
-points.sort()
+for x1, x2 in segments:
+    checked[x1] += 1
+    checked[x2] -= 1
 
-res = 0
-for i in range(max_point + 1):
-    sum_val = 0
-    for x, v in points:
-        if x >= i:
-            break
+for x in range(1, MAX_R + 1):
+    overlapped_cnt += checked[x]
+    ans = max(ans, overlapped_cnt)
 
-        sum_val += v
-    
-    res = max(res, sum_val)
-
-print(res)
+print(ans)
