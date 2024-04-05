@@ -16,10 +16,8 @@ for customer in customers:
             ans += 1
             continue
         else:
-            while customer >= max2:
-                ans += (customer // max2)
-                customer = customer % max2
-
+            ans += (customer // max2)
+            customer = customer % max2
             ans += 1
 
 print(ans)
