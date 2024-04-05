@@ -9,6 +9,8 @@ cur_row = 0
 for i in range(n):
     if sum(arr[i][k: k+m]) == 0:
         cur_row = i
+    else:
+        break
 
 for j in range(k, k + m):
     arr[cur_row][j] = 1
