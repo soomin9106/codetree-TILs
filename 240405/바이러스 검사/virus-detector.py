@@ -5,7 +5,7 @@ max1, max2 = map(int, input().split())
 
 ans = 0
 for customer in customers:
-    if customer < max1:
+    if customer <= max1:
         ans += 1
         continue
     else:
