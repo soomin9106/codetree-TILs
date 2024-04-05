@@ -12,11 +12,11 @@ for customer in customers:
         customer -= max1
         ans += 1
 
-        if customer < max2:
+        if customer <= max2:
             ans += 1
             continue
         else:
-            while customer > max2:
+            while customer >= max2:
                 ans += (customer // max2)
                 customer = customer % max2
 
