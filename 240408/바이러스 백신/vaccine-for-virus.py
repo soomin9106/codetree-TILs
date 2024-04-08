@@ -50,7 +50,7 @@ def calc():
             if not visited[i][j] and arr[i][j] == 0:
                 return -1
 
-    return cnt
+    return cnt - 1
     
 ans = int(1e9)
 def choose_hospitals(idx):
