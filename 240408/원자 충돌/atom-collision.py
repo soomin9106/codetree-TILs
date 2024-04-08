@@ -42,19 +42,17 @@ def calc(cur_arr):
         else:
             sum_m = 0
             sum_s = 0
-            new_d = 'UP'
+            new_d = [0, 0]
 
             for (curm, curs, curd) in cur_arr[key]:
                 sum_m += curm
                 sum_s += curs
-
-                if curd not in [0, 2, 4, 6]:
-                    new_d = 'TRI'
+                new_d[curd % 2] += 1
 
             if sum_m // 5 == 0:
                 continue
             
-            if new_d == 'UP':
+            if not new_d[0] or not new_d[1]:
                 res_arr[key].append([sum_m // 5, sum_s // len(cur_arr[key]), 0])
                 res_arr[key].append([sum_m // 5, sum_s // len(cur_arr[key]), 2])
                 res_arr[key].append([sum_m // 5, sum_s // len(cur_arr[key]), 4])
