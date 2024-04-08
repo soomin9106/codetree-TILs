@@ -29,7 +29,7 @@ for i in range(n):
             hospitals.append((i, j))
 
 def can_go(x, y):
-    return in_range(x, y) and not visited[x][y] and arr[x][y] == 0
+    return in_range(x, y) and not visited[x][y] and arr[x][y] != 1
 
 def calc():
     cnt = 0
