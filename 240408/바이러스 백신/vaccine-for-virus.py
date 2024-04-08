@@ -7,6 +7,7 @@ for _ in range(n):
     arr.append(list(map(int, input().split())))
 
 visited = [[False] * n for _ in range(n)]
+step = [[0] * n for _ in range(n)]
 q = deque()
 
 dxs = [1, -1, 0, 0]
@@ -19,6 +20,7 @@ def initialize_visited():
     for i in range(n):
         for j in range(n):
             visited[i][j] = False
+            step[i][j] = 0
 
 
 hospitals = []
@@ -29,7 +31,7 @@ for i in range(n):
             hospitals.append((i, j))
 
 def can_go(x, y):
-    return in_range(x, y) and not visited[x][y] and arr[x][y] != 1
+    return in_range(x, y) and arr[x][y] != 1 and not visited[x][y]
 
 def calc():
     cnt = 0
@@ -42,13 +44,16 @@ def calc():
             if can_go(nx, ny):
                 visited[nx][ny] = True
                 q.append((nx, ny, cur_sec + 1))
-                cnt = max(cnt, cur_sec + 1)
+                step[nx][ny] = cur_sec + 1
 
     # 모든 바이러스를 치유하지 못한 경우
     for i in range(n):
         for j in range(n):
-            if not visited[i][j] and arr[i][j] == 0:
-                return -1
+            if arr[i][j] == 0:
+                if not visited[i][j]:
+                    return -1
+                else:
+                    cnt = max(cnt, step[i][j])
 
     return cnt
     
@@ -63,9 +68,9 @@ def choose_hospitals(idx):
 
         # 모든 바이러스를 제거할 수 없는 경우
         if val == -1:
-            print(selected_hospitals, val)
+            # print(selected_hospitals, val)
             return 
-        print(selected_hospitals, val)
+        # print(selected_hospitals, val)
         ans = min(ans, val)
         return
 
@@ -83,4 +88,4 @@ if ans == int(1e9):
     print(-1)
     exit(0)
 
-# print(ans)
+print(ans)
