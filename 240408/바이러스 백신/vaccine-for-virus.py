@@ -42,7 +42,7 @@ def calc():
             if can_go(nx, ny):
                 visited[nx][ny] = True
                 q.append((nx, ny, cur_sec + 1))
-                cnt = max(cur_sec + 1, cnt)
+                cnt = max(cnt, cur_sec + 1)
 
     # 모든 바이러스를 치유하지 못한 경우
     for i in range(n):
@@ -50,7 +50,7 @@ def calc():
             if not visited[i][j] and arr[i][j] == 0:
                 return -1
 
-    return cnt - 1
+    return cnt
     
 ans = int(1e9)
 def choose_hospitals(idx):
@@ -63,8 +63,9 @@ def choose_hospitals(idx):
 
         # 모든 바이러스를 제거할 수 없는 경우
         if val == -1:
+            print(selected_hospitals, val)
             return 
-
+        print(selected_hospitals, val)
         ans = min(ans, val)
         return
 
@@ -82,4 +83,4 @@ if ans == int(1e9):
     print(-1)
     exit(0)
 
-print(ans)
+# print(ans)
