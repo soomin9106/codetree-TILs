@@ -40,7 +40,7 @@ def bfs_fire(new_arr):
 
     ans = 0
     for i in range(n):
-        for j in range(n):
+        for j in range(m):
             if new_arr[i][j] == 0 and not visited_bfs[i][j]:
                 ans += 1
     
