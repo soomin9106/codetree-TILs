@@ -28,7 +28,7 @@ def in_range(x, y):
 
 def calc(chosen_walls):
     initialize_new_arr(chosen_walls)
-
+    
     bfs_q = deque()
     for i in range(n):
         for j in range(m):
@@ -55,20 +55,21 @@ def calc(chosen_walls):
 
     return val
 
-ans = -int(1e9)
-def choose_walls(x_idx, chosen_walls):
+ans = 0
+def choose_walls(x_idx, y_idx, chosen_walls):
     global ans
     if len(chosen_walls) == 3:
         val = calc(chosen_walls)
         ans = max(ans, val)
         return 
 
-    for i in range(x_idx + 1, n):
-        for j in range(0, m):
+    for i in range(x_idx, n):
+        y_idx = y_idx if i == x_idx else 0
+        for j in range(y_idx, m):
             if not visited[i][j] and arr[i][j] == 0:
                 visited[i][j] = True
-                choose_walls(i, chosen_walls + [(i, j)])
+                choose_walls(i, j + 1, chosen_walls + [(i, j)])
                 visited[i][j] = False
 
-choose_walls(-1, [])
+choose_walls(0, 0, [])
 print(ans)
