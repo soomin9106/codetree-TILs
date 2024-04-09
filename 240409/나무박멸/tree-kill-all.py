@@ -84,7 +84,7 @@ def make_h(ps):
         herbicides[i][j] = (1, cur_m) # 제초제가 있다, 몇년도에 만들어졌다 정보 저장
 
 def spread_all():
-    ans = -int(1e9)
+    ans = 0
     ps = []
     for i in range(n):
         for j in range(n):
