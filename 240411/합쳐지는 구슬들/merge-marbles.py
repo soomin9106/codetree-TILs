@@ -43,6 +43,7 @@ def in_range(x, y):
 
 # 특정 좌표의 이동
 def move(i, x, y, d, w):
+    global next_glasses
     nx, ny = x + dxs[d], y + dys[d]
     nd = d
 
@@ -69,6 +70,7 @@ def move_all():
 
 # 구슬 충돌
 def collusion():
+    global next_glasses
     for x in range(n):
         for y in range(n):
             # 같은 위치에 2개 이상의 구슬
@@ -90,6 +92,7 @@ def collusion():
 
 # 전체 턴 시뮬레이션
 def simulate():
+    global glasses
     initialize_next_glasses()
 
     move_all()
