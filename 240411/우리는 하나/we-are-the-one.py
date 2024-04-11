@@ -13,6 +13,8 @@ points = [
     for y in range(n)
 ]
 
+# print('points', points)
+
 dxs = [-1, 1, 0, 0]
 dys = [0, 0, -1, 1]
 
@@ -33,7 +35,6 @@ def initialize_visited():
 
 
 def bfs():
-    initialize_visited()
     bfs_q = deque()
     for (x, y) in selected_points:
         visited[x][y] = True 
@@ -63,13 +64,14 @@ ans = -1
 def choose_points(idx):
     global ans
     if len(selected_points) == k:
+        initialize_visited()
         bfs()
         count = calc()
-        
+        # print('coount', count)
         ans = max(ans, count)
         return 
 
-    if idx >= n:
+    if idx >= len(points):
         return 
 
     choose_points(idx + 1)
