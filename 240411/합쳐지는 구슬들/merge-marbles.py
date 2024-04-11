@@ -34,6 +34,7 @@ for i in range(m):
     glasses[r-1][c-1].append((i, dir_mapper[d], w))
 
 def initialize_next_glasses():
+    global next_glasses
     for i in range(n):
         for j in range(n):
             next_glasses[i][j] = []
@@ -96,7 +97,6 @@ def collusion():
 
 # 전체 턴 시뮬레이션
 def simulate():
-    
     initialize_next_glasses()
 
     move_all()
@@ -107,8 +107,6 @@ def simulate():
 for _ in range(t):
     simulate()
 
-    # print('glasses', glasses)
-    # print()
 
 cnt = 0
 max_w = 0
