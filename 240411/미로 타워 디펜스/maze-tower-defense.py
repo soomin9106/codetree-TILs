@@ -18,6 +18,15 @@ new_maps = [
     for _ in range(n)
 ]
 
+
+def print_maps():
+    for i in range(n):
+        for j in range(n):
+            print(maps[i][j], end = ' ')
+        print()
+
+    print()
+
 # 중앙 격자 인덱스
 mid = n // 2 
 
@@ -101,11 +110,14 @@ def get_continue_loc():
     cur_val = maps[cur_x][cur_y]
     temp_con = [(cur_x, cur_y)]
 
-    for idx, (x, y) in enumerate(locations, start = 1):
+    for idx, (x, y) in enumerate(locations):
+        if idx == 0:
+            continue
         if maps[x][y] == cur_val:
             temp_con.append((x, y))
         else:
             if len(temp_con) >= 4:
+                # print('appended', temp_con)
                 continues.append(temp_con)
             temp_con = []
             temp_con.append((x, y))
@@ -180,7 +192,9 @@ score =  0
 for (d, p) in commands:
     score += attack(d, p)
     fill()
+
     while True:
+        # print_maps()
         continues = get_continue_loc()
 
         if len(continues) == 0:
@@ -188,13 +202,7 @@ for (d, p) in commands:
         else:
             score += refill(continues)
 
-    # make_new_row()
     fill_with_count()
 
-
-# for i in range(n):
-#     for j in range(n):
-#         print(maps[i][j], end = ' ')
-#     print()
 
 print(score)
