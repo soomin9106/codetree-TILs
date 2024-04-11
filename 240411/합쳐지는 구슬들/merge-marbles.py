@@ -33,6 +33,8 @@ for i in range(m):
 
     glasses[r-1][c-1].append((i, dir_mapper[d], w))
 
+# print(glasses)
+
 def initialize_next_glasses():
     global next_glasses
     for i in range(n):
@@ -49,12 +51,12 @@ def move(i, x, y, d, w):
     nd = d
 
     if not in_range(nx, ny):
-        nx, ny = x, y
+        nx, ny = x, y # 기존 위치로 복귀
         if d == 0:
             nd = 1
-        if d == 1:
+        elif d == 1:
             nd = 0
-        if d == 2:
+        elif d == 2:
             nd = 3
         else:
             nd = 2
@@ -80,7 +82,7 @@ def collusion():
                 max_d = 0
                 idx = 0
 
-                next_glasses[x][y].sort()
+                # next_glasses[x][y].sort()
 
                 for (i, curd, curw) in next_glasses[x][y]:
                     max_w += curw
@@ -102,6 +104,8 @@ def simulate():
     move_all()
 
     collusion()
+
+    # print('next_glasses', next_glasses)
                 
 
 for _ in range(t):
