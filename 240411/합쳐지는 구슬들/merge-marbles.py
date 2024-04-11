@@ -81,8 +81,9 @@ def collusion():
 
                 for (i, curd, curw) in next_glasses[x][y]:
                     max_w += curw
-                    idx = i
-                    max_d = curd
+                    if i > idx:
+                        idx = i
+                        max_d = curd
 
                 next_glasses[x][y] = []
                 next_glasses[x][y].append((idx, max_d, max_w))
