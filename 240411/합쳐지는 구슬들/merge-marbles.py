@@ -70,7 +70,7 @@ def move_all():
 
 # 구슬 충돌
 def collusion():
-    global next_glasses
+    global glasses, next_glasses
     for x in range(n):
         for y in range(n):
             # 같은 위치에 2개 이상의 구슬
@@ -90,18 +90,18 @@ def collusion():
                 next_glasses[x][y] = []
                 next_glasses[x][y].append((idx, max_d, max_w))
 
+    for x in range(n):
+        for y in range(n):
+            glasses[x][y] = next_glasses[x][y]
+
 # 전체 턴 시뮬레이션
 def simulate():
-    global glasses
+    
     initialize_next_glasses()
 
     move_all()
 
     collusion()
-
-    for x in range(n):
-        for y in range(n):
-            glasses[x][y] = next_glasses[x][y]
                 
 
 for _ in range(t):
