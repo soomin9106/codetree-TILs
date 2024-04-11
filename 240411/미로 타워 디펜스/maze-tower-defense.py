@@ -64,10 +64,9 @@ def attack(d, p):
     for _ in range(p):
         nx, ny = x + dxs[d], y + dys[d]
 
-        if in_range(nx, ny):
-            x, y = nx, ny
-            s += maps[x][y]
-            maps[x][y] = 0
+        x, y = nx, ny
+        s += maps[x][y]
+        maps[x][y] = 0
 
     return s
 
@@ -82,6 +81,8 @@ def fill():
             numbers.append(maps[x][y])
 
     for i in range(len(numbers)):
+        if i >= n * n - 1:
+            break
         x, y = locations[i]
         new_maps[x][y] = numbers[i]
 
@@ -96,7 +97,7 @@ def fill():
 # 반환된 위치 기반으로 fill 다시 수행
 def get_continue_loc():
     continues = []
-    cur_x, cur_y = locations[0][0], locations[0][1]
+    cur_x, cur_y = mid, mid - 1
     cur_val = maps[cur_x][cur_y]
     temp_con = [(cur_x, cur_y)]
 
@@ -113,7 +114,6 @@ def get_continue_loc():
     return continues
     
 def refill(continues):
-    # continues = get_continue_loc()
     s = 0
     for item in continues:
         for (x, y) in item:
@@ -190,6 +190,7 @@ for (d, p) in commands:
 
     # make_new_row()
     fill_with_count()
+
 
 # for i in range(n):
 #     for j in range(n):
