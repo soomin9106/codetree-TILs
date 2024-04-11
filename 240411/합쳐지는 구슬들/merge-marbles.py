@@ -115,7 +115,7 @@ max_w = 0
 
 for i in range(n):
     for j in range(n):
-        if len(glasses[i][j]) == 1:
+        if len(glasses[i][j]) >= 1:
             cnt += 1
             idx, curd, curw = glasses[i][j][0]
 
