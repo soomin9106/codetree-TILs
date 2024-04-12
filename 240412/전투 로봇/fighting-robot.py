@@ -13,8 +13,7 @@ visited = [[False] * n for _ in range(n)]
 step = [[0] * n for _ in range(n)]
 bfs_q = deque()
 
-dxs = [1, -1, 0, 0]
-dys = [0, 0, 1, -1]
+dxs, dys = [0, 1, 0, -1], [1, 0, -1, 0]
 
 # range 관련 함수들
 def in_range(x, y):
@@ -36,10 +35,7 @@ for i in range(n):
 
 
 def bfs():
-    for i in range(n):
-        for j in range(n):
-            visited[i][j] = False
-
+    
     while bfs_q:
         curx, cury = bfs_q.popleft()
 
