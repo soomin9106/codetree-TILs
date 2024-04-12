@@ -26,6 +26,7 @@ def initialize_next_grid():
 
 visited = [[False] * n for _ in range(n)]
 
+# 빨간 폭탄 초기 위치 파악
 red_bombs = []
 for i in range(n):
     for j in range(n):
@@ -43,23 +44,23 @@ def can_go(x, y, color):
             not visited[x][y] and \
             (grid[x][y] == color or grid[x][y] == 0)
 
-
 all_points = []
 max_len = 0
 ans = 0 # 점수 기록
 
 # 빨간 색 아닌 좌표에서 찾기 시작 - 이것만 해도 될 듯
 def find_bombs(x, y):
+    global visited
     bomb_q = deque()
     points = []
 
     visited[x][y] = True
-    bomb_q.append((x, y, 1))
+    bomb_q.append((x, y))
     points.append((x, y))
 
     
     while bomb_q:
-        curx, cury, curcnt = bomb_q.popleft()
+        curx, cury = bomb_q.popleft()
 
         for dx, dy in zip(dxs, dys):
             nx, ny = curx + dx, cury + dy
@@ -67,7 +68,7 @@ def find_bombs(x, y):
             if can_go(nx, ny, grid[x][y]):
                 visited[nx][ny] = True 
                 points.append((nx, ny))
-                bomb_q.append((nx, ny, curcnt + 1))
+                bomb_q.append((nx, ny))
 
     points.sort()
 
@@ -90,7 +91,7 @@ def choose_one_bombs(candidates):
     if len(red_cnts) == 1:
         return candidates[red_cnts[0][1]]
 
-    if len(red_cnts) >= 2 and red_cnts[1][0] != min_cnt: # min_cnt 를 가지는 요소가 하나라면 바로 맨 첫번째꺼 리턴
+    if red_cnts[1][0] != min_cnt: # min_cnt 를 가지는 요소가 하나라면 바로 맨 첫번째꺼 리턴
         return candidates[red_cnts[0][1]]
 
     mid_points = []
@@ -113,17 +114,16 @@ def choose_one_bombs(candidates):
 def choose_bombs():
     global max_len, ans, visited
     max_len = 0 # 초기화
-    # print_grid()
-    cnt = 0
+    
     for i in range(n):
         for j in range(n):
             if grid[i][j] >= 1:
-                cnt += 1
+                
                 visited = [[False] * n for _ in range(n)]
                 cur_points = find_bombs(i, j)
                 all_points.append(cur_points)
 
-    if len(all_points) == 0:
+    if len(all_points) == 0: 
         return False
 
     for ap in all_points:
@@ -139,10 +139,12 @@ def choose_bombs():
             candidates.append(ap)
 
     # 행 크고, 열 작은 순서대로 sort
+    new_cands = []
     for candidate in candidates:
         candidate.sort(key = lambda x: (-x[0], x[1]))
+        new_cands.append(candidate)
 
-    one_bomb = choose_one_bombs(candidates)
+    one_bomb = choose_one_bombs(new_cands)
     ans += len(one_bomb) * len(one_bomb)
 
     # 폭탄 터트리기
@@ -198,6 +200,7 @@ while True:
     rotate()
     gravity()
 
+    # 다음 턴을 위해 초기화
     red_bombs = []
     for i in range(n):
         for j in range(n):
@@ -205,8 +208,6 @@ while True:
                 red_bombs.append((i, j))
 
     all_points = []
-
-
 
 
 print(ans)
