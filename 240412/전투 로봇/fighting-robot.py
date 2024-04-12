@@ -31,6 +31,7 @@ robot_x, robot_y = -1, -1
 for i in range(n):
     for j in range(n):
         if arr[i][j] == 9:
+            arr[i][j] = 0
             robot_x, robot_y = i, j
 
 
@@ -74,8 +75,7 @@ def move():
     for i in range(n):
         for j in range(n):
             # bfs 를 했는데도 방문을 못했거나, 몬스터가 아니거나, 몬스터의 레벨이 같은 경우에는 잡아먹지는 못함
-            if not visited[i][j] or not arr[i][j] or \
-                arr[i][j] == robot_level:
+            if not visited[i][j] or not arr[i][j] or arr[i][j] == robot_level:
                 continue
 
             new_pos = (i, j)
