@@ -1,5 +1,6 @@
 from collections import deque 
 
+
 n = int(input())
 
 arr = []
@@ -10,10 +11,9 @@ for _ in range(n):
 ans = 0
 level_cnt = 0
 visited = [[False] * n for _ in range(n)]
-step = [[0] * n for _ in range(n)]
-bfs_q = deque()
 
-dxs, dys = [0, 1, 0, -1], [1, 0, -1, 0]
+dxs = [1, -1, 0, 0]
+dys = [0, 0, 1, -1]
 
 # range 관련 함수들
 def in_range(x, y):
@@ -34,76 +34,88 @@ for i in range(n):
             arr[i][j] = 0
             robot_x, robot_y = i, j
 
+# 몬스터 위치 관리 리스트 정의 및 초기화
+monsters = []
+for i in range(n):
+    for j in range(n):
+        if arr[i][j] >= 1:
+            monsters.append((arr[i][j], i, j))
 
-def bfs():
-    
-    while bfs_q:
-        curx, cury = bfs_q.popleft()
+def get_distance(x, y):
+    return abs(robot_x - x) + abs(robot_y - y)
 
-        for dx, dy in zip(dxs, dys):
-            nx, ny = curx + dx, cury + dy
+def find_available_monster():
+    candidates = []
 
-            if can_go(nx, ny):
-                bfs_q.append((nx, ny))
-                step[nx][ny] = step[curx][cury] + 1
-                visited[nx][ny] = True
+    for (lv, i, j) in monsters:
+        if lv < robot_level:
+            candidates.append((lv, get_distance(i, j),  i, j))
 
-def update(best_pos, new_pos):
-    if best_pos == (-1, -1):
-        return True
-    
-    best_x, best_y = best_pos
-    nx, ny = new_pos
+    candidates.sort()
 
-    return (step[best_x][best_y], best_x, best_y) > \
-            (step[nx][ny], nx, ny)
+    print(candidates)
 
-def move():
-    global robot_level, level_cnt, robot_x, robot_y
-    global ans
+    if len(candidates) == 0:
+        return []
+    return candidates[0]
+
+# 로봇 위치에서 치워야 될 몬스터까지의 최소 거리 구하기
+def bfs(monster_lv, monster_x, monster_y):
+    global monsters, robot_x, robot_y, level_cnt, robot_level
 
     for i in range(n):
         for j in range(n):
             visited[i][j] = False
 
+    q = deque()
+    q.append((robot_x, robot_y, 0))
+    arr[robot_x][robot_y] = 0
     visited[robot_x][robot_y] = True
-    step[robot_x][robot_y] = 0
-    bfs_q.append((robot_x, robot_y))
-    bfs()
 
-    best_pos = (-1, -1)
-    for i in range(n):
-        for j in range(n):
-            # bfs 를 했는데도 방문을 못했거나, 몬스터가 아니거나, 몬스터의 레벨이 같은 경우에는 잡아먹지는 못함
-            if not visited[i][j] or not arr[i][j] or arr[i][j] == robot_level:
-                continue
+    while q:
+        curx, cury, curstep = q.popleft()
 
-            new_pos = (i, j)
-            if update(best_pos, new_pos): 
-                best_pos = new_pos
+        for dx, dy in zip(dxs, dys):
+            nx, ny = curx + dx, cury + dy
 
-    if best_pos != (-1, -1):
-        best_x, best_y = best_pos
+            if (nx, ny) == (monster_x, monster_y):
+                monsters.remove((arr[nx][ny], nx, ny))
+                arr[nx][ny] = 9
+                robot_x, robot_y = nx, ny
+                level_cnt += 1
 
-        ans += step[best_x][best_y]
-        arr[best_x][best_y] = 0
-        robot_x, robot_y = best_x, best_y
-        level_cnt += 1
+                if level_cnt == robot_level:
+                    level_cnt = 0
+                    robot_level += 1
 
-        if level_cnt == robot_level:
-            robot_level += 1
-            level_cnt = 0
+                return curstep + 1
 
-        return True
-    else:
+            if can_go(nx, ny):
+                q.append((nx, ny, curstep + 1))
+
+    return -1
+
+def simulate():
+    global ans
+    monster_point = find_available_monster()
+
+    if monster_point == []:
         return False
 
-    
+    _, monster_lv, monster_x, monster_y = monster_point
 
+    step = bfs(monster_lv, monster_x, monster_y)
+    # print('step', step)
 
-while True:
-    moved = move()
-    if not moved:
+    if step == -1:
+        return False
+
+    ans += step
+
+    return True
+
+for _ in range(1):
+    if not simulate():
         break
 
     # for i in range(n):
