@@ -40,12 +40,15 @@ for i in range(n):
         if arr[i][j] >= 1:
             monsters.append((arr[i][j], i, j))
 
+def get_distance(x, y):
+    return abs(robot_x - x) + abs(robot_y - y)
+
 def find_available_monster():
     candidates = []
 
     for (lv, i, j) in monsters:
         if lv < robot_level:
-            candidates.append((lv, i, j))
+            candidates.append((get_distance(i, j), lv, i, j))
 
     candidates.sort()
 
@@ -63,6 +66,7 @@ def bfs(monster_lv, monster_x, monster_y):
 
     q = deque()
     q.append((robot_x, robot_y, 0))
+    arr[robot_x][robot_y] = 0
     visited[robot_x][robot_y] = True
 
     while q:
@@ -95,9 +99,10 @@ def simulate():
     if monster_point == []:
         return False
 
-    monster_lv, monster_x, monster_y = monster_point
+    _, monster_lv, monster_x, monster_y = monster_point
 
     step = bfs(monster_lv, monster_x, monster_y)
+    # print('step', step)
 
     if step == -1:
         return False
@@ -105,10 +110,16 @@ def simulate():
     ans += step
 
     return True
-    # print(step)
 
 while True:
     if not simulate():
         break
+
+    # for i in range(n):
+    #     for j in range(n):
+    #         print(arr[i][j], end = ' ')
+    #     print()
+
+    # print()
 
 print(ans)
