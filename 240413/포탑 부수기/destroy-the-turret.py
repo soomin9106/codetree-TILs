@@ -89,10 +89,22 @@ def choose_victim():
 
     victim_info.sort()
 
-    power = -1 * victim_info[0][0]
-    recent = victim_info[0][1]
-    sum_xy = victim_info[0][2]
-    victim_y = victim_info[0][3]
+    idx = 0
+    for i, vi in enumerate(victim_info):
+        summ = victim_info[i][2]
+        vi_y = victim_info[i][3]
+
+        vi_x = summ - vi_y
+
+        if (vi_x, vi_y) != (ax, ay):
+            idx = i
+            break
+
+
+    power = -1 * victim_info[idx][0]
+    recent = victim_info[idx][1]
+    sum_xy = victim_info[idx][2]
+    victim_y = victim_info[idx][3]
 
     victim_x = sum_xy - victim_y
 
@@ -148,8 +160,8 @@ def attack():
 
     minus_a = grid[ax][ay][0] // 2
     chosen_step = []
-    
-    if len(available_steps) >= 1:
+    # print('available_steps', available_steps)
+    if len(available_steps) >= 2:
         chosen_step = available_steps[0]
 
         # print('chosen', chosen_step)
@@ -197,8 +209,12 @@ for _ in range(k):
     if is_over():
         break
     choose_attacker()
+    # print_grid()
     choose_victim()
+    # print('ax, ay, vx, vy', ax, ay, vx, vy)
     attack()
+
+    # print_grid()
 
     cur_t += 1
 
