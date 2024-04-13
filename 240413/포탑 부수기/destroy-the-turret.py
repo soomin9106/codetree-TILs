@@ -15,7 +15,7 @@ grid = [
 for i in range(n):
     col = list(map(int, input().split()))
     for j in range(m):
-        grid[i][j] = (col[j], 0)
+        grid[i][j] = (col[j], 0) # 공격력, 시간
 
 handicap = n + m
 cur_t = 1 # 시점 1부터 시작
@@ -113,7 +113,7 @@ def choose_victim():
     vx, vy = victim_x, victim_y
 
 def can_go(x, y):
-    return not visited[x][y] and grid[x][y] != 0 
+    return not visited[x][y] and grid[x][y][0] != 0 
 
 # 레이저 공격을 위한 bfs
 def bfs():
@@ -134,7 +134,7 @@ def bfs():
                 cnx = 0
             if ny == -1:
                 cny = m -1
-            if ny == n:
+            if ny == m:
                 cny = 0
 
             if can_go(cnx, cny):
@@ -161,7 +161,7 @@ def attack():
     minus_a = grid[ax][ay][0] // 2
     chosen_step = []
     # print('available_steps', available_steps)
-    if len(available_steps) >= 2:
+    if len(available_steps) >= 1:
         chosen_step = available_steps[0]
 
         # print('chosen', chosen_step)
@@ -188,18 +188,19 @@ def attack():
             if nx == n:
                 cnx = 0
             if ny == -1:
-                cny = m -1
-            if ny == n:
+                cny = m - 1
+            if ny == m:
                 cny = 0
 
             if (cnx, cny) != (ax, ay):
+                chosen_step.append((cnx, cny))
                 grid[cnx][cny] = (max(grid[cnx][cny][0] - minus_a, 0), grid[cnx][cny][1])
         
 
     # 포탑 재정비
     for i in range(n):
         for j in range(m):
-            if (i, j) not in chosen_step and grid[i][j][0] != 0:
+            if (i, j) not in chosen_step and (i, j) != (ax, ay) and (i, j) != (vx, vy) and grid[i][j][0] != 0:
                 grid[i][j] = (grid[i][j][0] + 1, grid[i][j][1])
 
     return None
