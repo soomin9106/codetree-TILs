@@ -40,7 +40,7 @@ def print_grid():
 def is_over():
     cnt = 0
     for i in range(n):
-        for j in range(n):
+        for j in range(m):
             power, recent = grid[i][j]
 
             if power >= 1:
