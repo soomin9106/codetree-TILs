@@ -4,51 +4,36 @@ class Node:
         self.prev = None
         self.next = None
 
+nodes = {}
+nodeId = {}
+
 def connect(s, e):
     if s:
         s.next = e
     if e:
         e.prev = s        
 
-n, m = map(int, input().split())
-
-arr = list(map(int, input().split()))
-nodes = [None]
-
-for a in arr:
-    nodes.append(Node(a))
-
-for i in range(1, n):
-    connect(nodes[i], nodes[i + 1])
-
-nodes[1].prev = nodes[n]
-nodes[n].next = nodes[1]
-
-def call(u):
-    cur = nodes[1]
-    while cur and cur.id != u:
-        cur = cur.next
-    
-    if cur and cur.next is not None:
-        print(cur.next.id, end = ' ')
-    if cur and cur.prev is not None:
-        print(cur.prev.id)
-
 def pop(u):
-    cur = nodes[1]
-    while cur and cur.id != u:
-        cur = cur.next
+    connect(u.prev, u.next)
+    u.prev = u.next = None
 
-    if cur and cur.prev is not None:
-        cur.prev.next = cur.next
-    if cur and cur.next is not None:
-        cur.next.prev = cur.prev
+n, m = map(int, input().split())
+line = list(map(int, input().split()))
 
-    cur.next = cur.prev = None
+kinghtNum = line[0]
+nodeId[kinghtNum] = 1
+nodes[1] = Node(kinghtNum)
+for i in range(2, n + 1):
+    kinghtNum = line[i - 1]
+    nodeId[kinghtNum] = i
+    nodes[i] = Node(kinghtNum)
+    connect(nodes[i - 1], nodes[i])
 
+    if i == n:
+        connect(nodes[n], nodes[1])
 
 for _ in range(m):
-    cur = int(input())
-    # print(cur)
-    call(cur)
-    pop(cur)
+    kinghtNum = int(input())
+    print(nodes[nodeId[kinghtNum]].next.id, nodes[nodeId[kinghtNum]].prev.id)
+
+    pop(nodes[nodeId[kinghtNum]])
