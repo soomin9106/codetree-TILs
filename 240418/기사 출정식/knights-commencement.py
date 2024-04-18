@@ -26,7 +26,7 @@ nodes[n].next = nodes[1]
 
 def call(u):
     cur = nodes[1]
-    while cur.id != u:
+    while cur and cur.id != u:
         cur = cur.next
     
     if cur.next is not None:
@@ -36,7 +36,7 @@ def call(u):
 
 def pop(u):
     cur = nodes[1]
-    while cur.id != u:
+    while cur and cur.id != u:
         cur = cur.next
 
     if cur.prev is not None:
