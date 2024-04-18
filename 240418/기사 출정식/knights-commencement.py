@@ -29,9 +29,9 @@ def call(u):
     while cur and cur.id != u:
         cur = cur.next
     
-    if cur.next is not None:
+    if cur and cur.next is not None:
         print(cur.next.id, end = ' ')
-    if cur.prev is not None:
+    if cur and cur.prev is not None:
         print(cur.prev.id)
 
 def pop(u):
@@ -39,9 +39,9 @@ def pop(u):
     while cur and cur.id != u:
         cur = cur.next
 
-    if cur.prev is not None:
+    if cur and cur.prev is not None:
         cur.prev.next = cur.next
-    if cur.next is not None:
+    if cur and cur.next is not None:
         cur.next.prev = cur.prev
 
     cur.next = cur.prev = None
