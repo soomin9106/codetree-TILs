@@ -1,7 +1,5 @@
 n, k = map(int, input().split())
 
-students = [i for i in range(1, n + 1)]
-
 hates = []
 
 for _ in range(k):
