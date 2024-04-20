@@ -11,8 +11,7 @@ for _ in range(k):
     else:
         hates.append((x1, x2))
 
-hates.sort()
-
+hates.sort(key=lambda x: x[1])
 
 item = 0
 answer = 1
